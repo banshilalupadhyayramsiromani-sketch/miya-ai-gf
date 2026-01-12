@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Miya AI GF 💖</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #111;
+            color: #fff;
+            text-align: center;
+        }
+        #chat {
+            height: 300px;
+            overflow-y: auto;
+            border: 2px solid hotpink;
+            padding: 10px;
+            margin: 20px;
+        }
+        input {
+            width: 70%;
+            padding: 8px;
+        }
+        button {
+            padding: 8px 15px;
+            background: hotpink;
+            border: none;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Miya – Your AI GF 💕</h2>
+
+<div id="chat"></div>
+
+<input id="msg" placeholder="Type something..." />
+<button onclick="send()">Send</button>
+
+<script>
+function send() {
+    let msg = document.getElementById("msg").value;
+    if(msg.trim() === "") return;
+
+    document.getElementById("chat").innerHTML += "<p><b>You:</b> " + msg + "</p>";
+
+    fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "text/plain" },
+        body: msg
+    })
+    .then(res => res.text())
+    .then(reply => {
+        document.getElementById("chat").innerHTML += "<p><b>Miya:</b> " + reply + "</p>";
+    });
+
+    document.getElementById("msg").value = "";
+}
+</script>
+
+</body>
+</html>
